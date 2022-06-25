@@ -17,12 +17,14 @@ pipeline {
         }
         stage('Deploy stage') {
             steps {
+               sshagent(['ec2-user']) {
                 script{
-//                    def cm = 'copy ".\\Customer-service\\target\\*.war" "C:\\tomcat\\apache-tomcat-9.0.64\\webapps"'
-                   def cm = 'scp .\\customer-0.0.1-SNAPSHOT.war  Administrator@34.229.204.86:C:\\apache-tomcat-9.0.64\\webapps'
-                   echo "${cm}"
-                   bat "${cm}"
-                  }
+    //                    def cm = 'copy ".\\Customer-service\\target\\*.war" "C:\\tomcat\\apache-tomcat-9.0.64\\webapps"'
+                       def cm = 'scp .\\customer-0.0.1-SNAPSHOT.war  Administrator@34.229.204.86:C:\\apache-tomcat-9.0.64\\webapps'
+                       echo "${cm}"
+                       bat "${cm}"
+                   }
+               }
             }
         }
     }
