@@ -19,7 +19,7 @@ pipeline {
             steps {
                 script{
     //                    def cm = 'copy ".\\Customer-service\\target\\*.war" "C:\\tomcat\\apache-tomcat-9.0.64\\webapps"'
-                       def cm = 'sshpass -p \'password@123\' scp .\\customer-0.0.1-SNAPSHOT.war  Administrator@34.229.204.86:C:\\apache-tomcat-9.0.64\\webapps'
+                       def cm = 'sshpass -p \'password@123\' scp -o StrictHostKeyChecking=no .\\customer-0.0.1-SNAPSHOT.war  Administrator@34.229.204.86:C:\\apache-tomcat-9.0.64\\webapps'
                        echo "${cm}"
                        sh "${cm}"
                   }
