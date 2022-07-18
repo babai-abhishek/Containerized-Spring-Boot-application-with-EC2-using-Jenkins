@@ -7,6 +7,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.Configuration;
 
 @SpringBootApplication
+@Configuration
 public class CustomerServiceApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
