@@ -80,7 +80,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-		<finalName>customer</finalName>
+		<finalName>customer-service</finalName>
 	</build>
 
 </project>
