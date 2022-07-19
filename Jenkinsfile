@@ -11,7 +11,7 @@ pipeline {
         stage('Build stage') {
             steps {
                 withMaven(maven : 'maven_3.6.1'){
-                    sh 'mvn clean install -DskipTests'
+                    sh 'mvn clean install -DskipTests -pl "!Sales, !Inventory"'
                 }
             }
         }
