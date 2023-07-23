@@ -1,15 +1,12 @@
 server:
   port: 9081
-
 spring:
-#  main:
-#    web-application-type: none
   application:
     name: customer-service
   datasource:
-    url: jdbc:mysql://database-pos.cqacoixsc0t7.us-east-1.rds.amazonaws.com:3306/pos-customer
-    username: admin
-    password: password
+    url: jdbc:mysql://localhost:6033/pos-customer
+    username: root
+    password: root
   jpa:
     show-sql: true
     hibernate:

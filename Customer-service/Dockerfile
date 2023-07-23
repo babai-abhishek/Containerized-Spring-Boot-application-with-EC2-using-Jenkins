@@ -2,7 +2,10 @@
 FROM openjdk:8-jre-alpine3.9
 
 # copy the packaged jar file into our docker image
-COPY Customer-service/target/customer-0.0.1-SNAPSHOT.jar /customer-0.0.1-SNAPSHOT.jar
+COPY Customer-service/target/customer-service.jar /customer-service.jar
+
+# environment variables
+ENV MYSQL_USER=root
 
 # set the startup command to execute the jar
-CMD ["java", "-jar", "/customer-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "/customer-0.0.1-SNAPSHOT.jar","MYSQL_USER=${MYSQL_USER}"]

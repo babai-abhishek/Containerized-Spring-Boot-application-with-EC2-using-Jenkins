@@ -18,7 +18,6 @@ pipeline {
         stage('Deploy stage') {
             steps {
                 script{
-    //                    def cm = 'copy ".\\Customer-service\\target\\*.war" "C:\\tomcat\\apache-tomcat-9.0.64\\webapps"'
                        sh "pwd"
                        def cm = 'sshpass -p \'@)2eJ9C?X(zJw;czt9GF6YT4G5Bx9uH5\' scp -o StrictHostKeyChecking=no ./Customer-service/target/*.war  Administrator@34.227.229.158:C:/apache-tomcat-9.0.64/webapps'
                        echo "${cm}"
