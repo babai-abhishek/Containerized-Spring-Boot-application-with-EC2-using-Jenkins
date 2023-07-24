@@ -1,5 +1,5 @@
 server:
-  port: 9081
+  port: 9082
 db:
   url: localhost:6033
   dbName: pos-customer
@@ -7,7 +7,7 @@ db:
   password: root
 kafka:
   consumer:
-    url: kafka:9092
+    url: localhost:9092
 spring:
   application:
     name: customer-service
