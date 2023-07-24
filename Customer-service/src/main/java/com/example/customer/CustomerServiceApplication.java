@@ -8,6 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CustomerServiceApplication{
 
 	public static void main(String[] args) {
+		System.out.println(System.getProperty("property "+"spring.datasource.username"));
+		System.out.println(System.getenv("env "+"spring.datasource.username"));
 		SpringApplication.run(CustomerServiceApplication.class, args);
 	}
 

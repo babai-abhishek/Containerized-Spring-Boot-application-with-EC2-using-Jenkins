@@ -63,6 +63,11 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+<!--				<configuration>-->
+<!--					<environmentVariables>-->
+<!--						<DB_USER>root</DB_USER>-->
+<!--					</environmentVariables>-->
+<!--				</configuration>-->
 			</plugin>
 		</plugins>
 		<finalName>customer-service</finalName>

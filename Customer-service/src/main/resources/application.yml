@@ -1,12 +1,20 @@
 server:
   port: 9081
+db:
+  url: localhost:6033
+  dbName: pos-customer
+  username: root
+  password: root
+kafka:
+  consumer:
+    url: kafka:9092
 spring:
   application:
     name: customer-service
   datasource:
-    url: jdbc:mysql://localhost:6033/pos-customer
-    username: root
-    password: root
+    url: jdbc:mysql://${db.url}/${db.dbName}
+    username: ${db.username}
+    password: ${db.password}
   jpa:
     show-sql: true
     hibernate:
@@ -21,7 +29,7 @@ spring:
         use_sql_comments: true
   kafka:
     consumer:
-      bootstrap-servers: localhost:9092
+      bootstrap-servers: ${kafka.consumer.url}
       group-id: consumer-service
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
