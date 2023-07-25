@@ -1,12 +1,20 @@
 server:
   port:  9082
+db:
+  url: localhost:6035
+  dbName: pos-inventory
+  username: root
+  password: root
+kafka:
+  consumer:
+    url: localhost:9092
 spring:
   application:
     name: inventory-service
   datasource:
-    url: jdbc:mysql://localhost:6035/pos-inventory
-    username: root
-    password: root
+    url: jdbc:mysql://${db.url}/${db.dbName}
+    username: ${db.username}
+    password: ${db.password}
   jpa:
     show-sql: true
     hibernate:
@@ -20,7 +28,7 @@ spring:
         show-sql: true
   kafka:
     consumer:
-      bootstrap-servers: localhost:9092
+      bootstrap-servers: ${kafka.consumer.url}
       group-id: consumer-service
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
