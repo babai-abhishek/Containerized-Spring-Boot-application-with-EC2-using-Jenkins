@@ -1,5 +1,5 @@
 server:
-  port: 9082
+  port: 9081
 db:
   url: localhost:6033
   dbName: pos-customer
