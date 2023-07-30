@@ -4,4 +4,4 @@ metadata:
   name: kafka-config
   namespace: kafka
 data:
-  zookeeper-url: zookeeper-service
+  zookeeper-url: zookeeper-service:2182

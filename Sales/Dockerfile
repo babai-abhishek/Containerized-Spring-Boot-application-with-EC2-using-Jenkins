@@ -16,8 +16,10 @@ FROM openjdk:8-jre-alpine3.9
 COPY --from=BUILD /app/target/*.jar /app.jar
 
 # environment variables
- ENV DB_URL=
- ENV KAFKA_PRODUCER_SERVER_URL=
+ENV DB_URL=
+ENV DB_USERNAME=
+ENV DB_PASSWORD=
+ENV KAFKA_PRODUCER_SERVER_URL=
 
 # set the startup command to execute the jar
-CMD ["java", "-jar", "/app.jar","--db.url=${DB_URL}","--kafka.producer.url=${KAFKA_PRODUCER_SERVER_URL}"]
+CMD ["java", "-jar", "/app.jar","--db.url=${DB_URL}","--db.username=${DB_USERNAME}","--db.password=${DB_PASSWORD}","--kafka.producer.url=${KAFKA_PRODUCER_SERVER_URL}"]

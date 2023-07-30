@@ -42,6 +42,8 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  labels:
+    app: kafka-service
   name: kafka-service
   namespace: kafka
 spec:

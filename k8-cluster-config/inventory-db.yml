@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inventory-db-deployment
+  namespace: kafka
+  labels:
+    app: inventory-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inventory-db
+  template:
+    metadata:
+      labels:
+        app: inventory-db
+    spec:
+      containers:
+        - name: inventory-db
+          image: abhishek050990/inventory-db:1.0
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "root"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: inventory-db-service
+  namespace: kafka
+spec:
+  selector:
+    app: inventory-db
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 6033
+      targetPort: 3306
+      nodePort: 30033

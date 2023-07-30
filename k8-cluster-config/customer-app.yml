@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customer-app-deployment
+  namespace: kafka
+  labels:
+    app: customer-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: customer-app
+  template:
+    metadata:
+      labels:
+        app: customer-app
+    spec:
+      containers:
+        - name: customer-app
+          image: abhishek050990/customer-app:v1
+          ports:
+            - containerPort: 9081
+          env:
+            - name: DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: customer-app-config
+                  key: customer-db-url
+            - name: DB_USERNAME
+              value: "root"
+            - name: DB_PASSWORD
+              value: "root"
+            - name: KAFKA_CONSUMER_SERVER_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: customer-app-config
+                  key: kafka-consumer-url
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: customer-app-service
+  namespace: kafka
+spec:
+  selector:
+    app: customer-app
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 9081
+      targetPort: 9081
+      nodePort: 30081
