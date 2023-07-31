@@ -10,9 +10,9 @@ registering new customer and their total sale. Inventory micro-service is for in
 &nbsp;  docker build . -t sales:v1 <br />
 &nbsp;  docker build . -t inventory:v1 <br />
 ##### Step 3: run the images - <br />
-&nbsp;  docker run -p 9081:9081 -e DB_URL='con-db-cust:3306' KAFKA_CONSUMER_SERVER_URL='kafka:9092' customer:v1 <br />
-&nbsp;  docker run -p 9082:9082 -e DB_URL='con-db-sales:3306' KAFKA_CONSUMER_SERVER_URL='kafka:9092' sales:v1 <br />
-&nbsp;  docker run -p 9083:9083 -e DB_URL='con-db-inventory:3306' KAFKA_CONSUMER_SERVER_URL='kafka:9092' inventory:v1
+&nbsp;  docker run -p 9081:9081 -e DB_URL='con-db-cust:3306' -e KAFKA_CONSUMER_SERVER_URL='kafka:9092' customer:v1 <br />
+&nbsp;  docker run -p 9082:9082 -e DB_URL='con-db-sales:3306' -e KAFKA_CONSUMER_SERVER_URL='kafka:9092' sales:v1 <br />
+&nbsp;  docker run -p 9083:9083 -e DB_URL='con-db-inventory:3306' -e KAFKA_CONSUMER_SERVER_URL='kafka:9092' inventory:v1
 ##### NOTE: Please check for network if all containers in the same network, if not bring them on same <br />
 ##### Helper link for network check: https://stackoverflow.com/questions/43904562/docker-how-to-find-the-network-my-container-is-in
 
