@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: customer-app-deployment
-  namespace: kafka
+  namespace: pos
   labels:
     app: customer-app
 spec:
@@ -20,6 +20,7 @@ spec:
           image: abhishek050990/customer-app:v1
           ports:
             - containerPort: 9081
+          imagePullPolicy: Always
           env:
             - name: DB_URL
               valueFrom:
@@ -35,12 +36,17 @@ spec:
                 configMapKeyRef:
                   name: customer-app-config
                   key: kafka-consumer-url
+#            - name: KAFKA_CONSUMER_SERVER_PORT
+#              valueFrom:
+#                configMapKeyRef:
+#                  name: customer-app-config
+#                  key: kafka-consumer-port
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: customer-app-service
-  namespace: kafka
+  namespace: pos
 spec:
   selector:
     app: customer-app

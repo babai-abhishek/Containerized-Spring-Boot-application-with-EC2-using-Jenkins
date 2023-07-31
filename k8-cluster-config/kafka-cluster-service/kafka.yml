@@ -2,7 +2,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: kafka-deployment
-  namespace: kafka
+  namespace: pos
   labels:
     app: kafka
 spec:
@@ -45,7 +45,7 @@ metadata:
   labels:
     app: kafka-service
   name: kafka-service
-  namespace: kafka
+  namespace: pos
 spec:
   selector:
     app: kafka

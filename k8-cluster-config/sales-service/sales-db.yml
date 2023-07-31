@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: inventory-db-deployment
-  namespace: kafka
+  name: sales-db-deployment
+  namespace: pos
   labels:
-    app: inventory-db
+    app: sales-db
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: inventory-db
+      app: sales-db
   template:
     metadata:
       labels:
-        app: inventory-db
+        app: sales-db
     spec:
       containers:
-        - name: inventory-db
-          image: abhishek050990/inventory-db:1.0
+        - name: sales-db
+          image: abhishek050990/sales-db:1.0
           ports:
             - containerPort: 3306
           env:
@@ -27,11 +27,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: inventory-db-service
-  namespace: kafka
+  name: sales-db-service
+  namespace: pos
 spec:
   selector:
-    app: inventory-db
+    app: sales-db
   type: LoadBalancer
   ports:
     - protocol: TCP
