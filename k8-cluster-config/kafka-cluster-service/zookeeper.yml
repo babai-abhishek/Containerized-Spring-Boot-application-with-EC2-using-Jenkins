@@ -4,13 +4,13 @@ metadata:
   labels:
     app: zookeeper-service
   name: zookeeper-service
-  namespace: pos
+  namespace: kafka
 spec:
   type: NodePort
   ports:
     - name: zookeeper-port
       port: 2182
-      nodePort: 30181
+      nodePort: 30182
       targetPort: 2181
   selector:
     app: zookeeper
@@ -21,7 +21,7 @@ metadata:
   labels:
     app: zookeeper
   name: zookeeper
-  namespace: pos
+  namespace: kafka
 spec:
   replicas: 1
   selector:

@@ -2,7 +2,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: kafka-deployment
-  namespace: pos
+  namespace: kafka
   labels:
     app: kafka
 spec:
@@ -46,13 +46,11 @@ metadata:
   labels:
     app: kafka-service
   name: kafka-service
-  namespace: pos
+  namespace: kafka
 spec:
   selector:
     app: kafka
-  type: LoadBalancer
   ports:
     - protocol: TCP
       port: 9092
       targetPort: 9092
-      nodePort: 30092
