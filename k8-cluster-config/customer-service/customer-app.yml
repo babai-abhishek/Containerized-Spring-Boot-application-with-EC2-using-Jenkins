@@ -36,11 +36,6 @@ spec:
                 configMapKeyRef:
                   name: customer-app-config
                   key: kafka-consumer-url
-#            - name: KAFKA_CONSUMER_SERVER_PORT
-#              valueFrom:
-#                configMapKeyRef:
-#                  name: customer-app-config
-#                  key: kafka-consumer-port
 ---
 apiVersion: v1
 kind: Service

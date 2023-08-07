@@ -4,6 +4,7 @@ metadata:
   name: customer-app-config
   namespace: customer
 data:
-  kafka-consumer-url: kafka-service.pos.svc.cluster.local:30092
+  kafka-consumer-url: kafka-service.kafka.svc.cluster.local
 #  kafka-consumer-port: "9092"
   customer-db-url: customer-db-service:6033
+  test: abhishek
