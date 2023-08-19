@@ -19,7 +19,7 @@ spec:
         - name: inventory-app
           image: abhishek050990/inventory-app:v2
           ports:
-            - containerPort: 9081
+            - containerPort: 9082
           imagePullPolicy: Always
           env:
             - name: DB_URL
@@ -43,6 +43,6 @@ spec:
   type: LoadBalancer
   ports:
     - protocol: TCP
-      port: 9081
-      targetPort: 9081
-      nodePort: 30081
+      port: 9082
+      targetPort: 9082
+      nodePort: 30082

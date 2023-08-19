@@ -24,7 +24,7 @@ spec:
             - name: MYSQL_ROOT_PASSWORD
               value: "root"
 ---
-apiVersion: v1name
+apiVersion: v1
 kind: Service
 metadata:
   name: inventory-db-service
@@ -37,4 +37,4 @@ spec:
     - protocol: TCP
       port: 6033
       targetPort: 3306
-      nodePort: 30033
+      nodePort: 30034
