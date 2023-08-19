@@ -16,6 +16,3 @@ registering new customer and their total sale. Inventory micro-service is for in
 ##### NOTE: Please check for network if all containers in the same network, if not bring them on same <br />
 ##### Helper link for network check: https://stackoverflow.com/questions/43904562/docker-how-to-find-the-network-my-container-is-in
 
-                     
-![image](https://github.com/babai-abhishek/Docker-Containerized-Spring-Boot-application/assets/17577922/f0e6e056-10c5-4d52-8529-a898d65b5af8)
-
