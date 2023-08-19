@@ -29,7 +29,7 @@ public class OrderService {
     @Autowired
     MessageProducer producer;
 
-    @Transactional
+    @Transactional(rollbackFor = InsufficientQuantityException.class)
     public Order registerOrder(Order order){
 
         //check new customer
@@ -45,11 +45,8 @@ public class OrderService {
             order.setCustomer(customer);
         }
 
-        //save order
-        Order ord = orderRepository.saveOrder(order);
-
         //update individual item stock quantity
-        List<OrderLine> orderLineList = ord.getOrderLines();
+        List<OrderLine> orderLineList = order.getOrderLines();
 
         for(OrderLine orderLine : orderLineList){
 
@@ -68,6 +65,9 @@ public class OrderService {
 
             itemService.updateItem(item);
         }
+
+        //save order
+        Order ord = orderRepository.saveOrder(order);
 
         //update sale info for this particular customer
         CustomerSale customerSale = customer.getSale();
