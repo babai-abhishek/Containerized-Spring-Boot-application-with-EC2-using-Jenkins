@@ -20,7 +20,6 @@ COPY --from=BUILD /app/target/*.jar /app.jar
 ENV DB_URL=
 ENV DB_USERNAME=
 ENV DB_PASSWORD=
-ENV KAFKA_CONSUMER_SERVER_URL=
 
 # set the startup command to execute the jar
-CMD ["java", "-jar", "/app.jar","--db.url=${DB_URL}","--db.username=${DB_USERNAME}","--db.password=${DB_PASSWORD}","--kafka.consumer.url=${KAFKA_CONSUMER_SERVER_URL}"]
+CMD ["java", "-jar", "/app.jar","--db.url=${DB_URL}","--db.username=${DB_USERNAME}","--db.password=${DB_PASSWORD}"]
