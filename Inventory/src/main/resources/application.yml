@@ -5,9 +5,6 @@ db:
   dbName: pos-inventory
   username: root
   password: root
-kafka:
-  consumer:
-    url: localhost:9092
 spring:
   application:
     name: inventory-service
@@ -26,14 +23,3 @@ spring:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         format_sql: true
         show-sql: true
-  kafka:
-    consumer:
-      bootstrap-servers: ${kafka.consumer.url}
-      group-id: consumer-service
-      auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-    producer:
-      bootstrap-servers: localhost:9092
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
