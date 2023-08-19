@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: inventory-app-config
+  namespace: inventory
+data:
+  inventory-db-url: inventory-db-service:6033

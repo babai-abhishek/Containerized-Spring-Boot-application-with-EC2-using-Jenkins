@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inventory-app-deployment
+  namespace: inventory
+  labels:
+    app: inventory-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inventory-app
+  template:
+    metadata:
+      labels:
+        app: inventory-app
+    spec:
+      containers:
+        - name: inventory-app
+          image: abhishek050990/inventory-app:v2
+          ports:
+            - containerPort: 9081
+          imagePullPolicy: Always
+          env:
+            - name: DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: inventory-app-config
+                  key: inventory-db-url
+            - name: DB_USERNAME
+              value: "root"
+            - name: DB_PASSWORD
+              value: "root"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: inventory-app-service
+  namespace: inventory
+spec:
+  selector:
+    app: inventory-app
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 9081
+      targetPort: 9081
+      nodePort: 30081
