@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sales-app-deployment
+  namespace: sales
+  labels:
+    app: sales-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sales-app
+  template:
+    metadata:
+      labels:
+        app: sales-app
+    spec:
+      containers:
+        - name: sales-app
+          image: abhishek050990/sales-app:v2
+          ports:
+            - containerPort: 9083
+          imagePullPolicy: Always
+          env:
+            - name: DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: sales-app-config
+                  key: sales-db-url
+            - name: DB_USERNAME
+              value: "root"
+            - name: DB_PASSWORD
+              value: "root"
+            - name: KAFKA_PRODUCER_SERVER_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: sales-app-config
+                  key: kafka-producer-url
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sales-app-service
+  namespace: sales
+spec:
+  selector:
+    app: sales-app
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 9083
+      targetPort: 9083
+      nodePort: 30083

@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sales-app-config
+  namespace: sales
+data:
+  kafka-producer-url: kafka-service.kafka.svc.cluster.local:9092
+  sales-db-url: sales-db-service:6033
