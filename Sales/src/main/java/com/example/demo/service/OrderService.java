@@ -34,55 +34,63 @@ public class OrderService {
 
         //check new customer
         Customer customer = order.getCustomer();
-
         //if new, register first
         if(customer.getId() == 0){
-
             customer = customerService.registerCustomer(customer);
 
-            producer.produceMessageOnCustomerRegistration(customer);
+            //create new customer object
+            Customer cust = new Customer();
+            cust.setId(customer.getId());
+            cust.setName(customer.getName());
+            cust.setMobile_no(customer.getMobile_no());
+            cust.setAddress(customer.getAddress());
 
-            order.setCustomer(customer);
+            CustomerSale sale = new CustomerSale();
+            sale.setCustomer_id(cust.getId());
+            sale.setTotal_sale(1);
+            cust.setSale(sale);
+
+            producer.produceMessageOnCustomerRegistration(cust);
+            order.setCustomer(cust);
         }
-
 
         //update individual item stock quantity
         List<OrderLine> orderLineList = order.getOrderLines();
 
         for(OrderLine orderLine : orderLineList){
-
             Item item = orderLine.getItem();
-
             int currentQuantityInStock = itemService.getItemDetail(item.getId()).getStockQuantity();
-
             int quantityOrdered = orderLine.getQuantity();
-
             if(quantityOrdered > currentQuantityInStock)
                 throw new InsufficientQuantityException("Not enough quantity for "+item.getName());
-
             int updatedQuantity = currentQuantityInStock - quantityOrdered;
-
             item.setStockQuantity(updatedQuantity);
-
             itemService.updateItem(item);
         }
-
         //save order
         Order ord = orderRepository.saveOrder(order);
 
+        updateSale(ord);
+
+        return ord;
+    }
+
+    private void updateSale(Order ord) {
+
         //update sale info for this particular customer
-        CustomerSale customerSale = customer.getSale();
+        CustomerSale customerSale = saleService.getTotalSale(ord.getCustomer().getMobile_no());
 
-        int currentSale = customerSale.getTotal_sale();
+        CustomerSale sale = new CustomerSale();
+        sale.setCustomer_id(ord.getCustomer().getId());
+        sale.setTotal_sale(customerSale.getTotal_sale() + 1);
 
-        customerSale.setTotal_sale(++currentSale);
+        customerSale.setTotal_sale(sale.getTotal_sale());
+        saleService.updateTotalSale(sale);
 
-        saleService.updateTotalSale(customerSale);
+        ord.getCustomer().setSale(sale);
 
         //send messages by Kafka including customer and customer sale info
         producer.produceMessageOnUpdateCustomerSale(customerSale);
-
-        return ord;
     }
 
     @Transactional

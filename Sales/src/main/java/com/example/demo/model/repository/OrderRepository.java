@@ -16,7 +16,7 @@ public class OrderRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Transactional(propagation = Propagation.MANDATORY)
+    @Transactional(propagation = Propagation.REQUIRED)
     public Order saveOrder(Order order) {
 
         entityManager.persist(order);
