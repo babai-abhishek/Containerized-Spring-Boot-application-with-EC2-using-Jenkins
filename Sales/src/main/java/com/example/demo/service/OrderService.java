@@ -32,13 +32,11 @@ public class OrderService {
     @Transactional(rollbackFor = InsufficientQuantityException.class)
     public Order registerOrder(Order order){
 
-        boolean isNewCustomer = false;
         //check new customer
         Customer customer = order.getCustomer();
         //if new, register first
         if(customer.getId() == 0){
             customer = customerService.registerCustomer(customer);
-            isNewCustomer = true;
             producer.produceMessageOnCustomerRegistration(customer);
             order.setCustomer(customer);
         }
@@ -57,12 +55,9 @@ public class OrderService {
             itemService.updateItem(item);
         }
         //save order
-
-        Order ord = isNewCustomer? orderRepository.saveOrderForNewCUstomer(order) : orderRepository.saveOrderForExistingCustomer(order);
+        Order ord = orderRepository.saveOrder(order);
         if (ord == null)
             throw new OrderNotFoundExcedption("Order not saved !");
-        if (!isNewCustomer)
-            ord.setCustomer(customer);
 
         updateSale(ord);
 
