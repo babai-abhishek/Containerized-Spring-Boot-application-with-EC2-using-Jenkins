@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -30,29 +31,30 @@ public class Customer {
     String address;
 
     @OneToOne(mappedBy = "customer",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.LAZY)
+            cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
     private CustomerSale sale;
 
     @OneToMany(
             mappedBy = "customer",
             cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.LAZY
+            orphanRemoval = true
     )
     @JsonBackReference
-    private List<Order> orderList;
+    private List<Order> orderList = new ArrayList<>();
 
     public List<Order> getOrderList() {
         return orderList;
     }
 
     public void setOrderList(List<Order> orderList) {
-        for(Order order : orderList){
-            order.setCustomer(this);
-        }
+         /*   for (Order order : orderList) {
+                order.setCustomer(this);
+            }
+            this.orderList.clear();
+            this.orderList.addAll(orderList);*/
         this.orderList = orderList;
+
     }
 
     public Customer() {

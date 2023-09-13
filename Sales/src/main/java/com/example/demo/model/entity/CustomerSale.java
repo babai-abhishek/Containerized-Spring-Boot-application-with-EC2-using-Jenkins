@@ -18,7 +18,7 @@ public class CustomerSale {
     @Column(name = "total_sale")
     int total_sale;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.MERGE)
     @MapsId
     @JsonBackReference
     private Customer customer;

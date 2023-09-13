@@ -17,7 +17,7 @@ public class OrderRepository {
     private EntityManager entityManager;
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public Order saveOrder(Order order) {
+    public Order saveOrderForNewCUstomer(Order order) {
 
         entityManager.persist(order);
 
@@ -41,7 +41,7 @@ public class OrderRepository {
     }
 
     @Transactional(propagation = Propagation.MANDATORY)
-    public Order updateOrder(Order order) {
+    public Order saveOrderForExistingCustomer(Order order) {
 
         return entityManager.merge(order);
     }

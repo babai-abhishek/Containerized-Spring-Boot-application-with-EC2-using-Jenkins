@@ -26,7 +26,7 @@ public class Order {
     @Column(name = "total")
     int total;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
     @JoinColumn(name = "customerId")
     Customer customer;
 
