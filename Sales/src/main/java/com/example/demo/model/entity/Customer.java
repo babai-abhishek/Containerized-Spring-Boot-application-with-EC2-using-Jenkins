@@ -40,7 +40,7 @@ public class Customer {
             cascade = CascadeType.ALL
     )
     @JsonBackReference
-    private List<Order> orderList = new ArrayList<>();
+    private List<Order> orderList;
 
     public List<Order> getOrderList() {
         return orderList;
