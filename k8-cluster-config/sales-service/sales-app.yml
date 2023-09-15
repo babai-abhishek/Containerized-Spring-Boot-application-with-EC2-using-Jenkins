@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: sales-app
-          image: abhishek050990/sales-app:v2
+          image: abhishek050990/sales-app:v3
           ports:
             - containerPort: 9083
           imagePullPolicy: Always
